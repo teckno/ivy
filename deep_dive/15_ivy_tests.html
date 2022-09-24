@@ -307,7 +307,7 @@ form our own strategies for describing data by composing Hypothesis’ built-in 
 and passing them as inputs to the test. For example, in this code snippet here -:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@handle_cmd_line_args</span>
 <span class="nd">@given</span><span class="p">(</span>
-<span class="n">dtype_and_x</span><span class="o">=</span><span class="n">helpers</span><span class="o">.</span><span class="n">dtype_and_values</span><span class="p">(</span><span class="n">ivy_np</span><span class="o">.</span><span class="n">valid_float_dtypes</span><span class="p">),</span>
+<span class="n">dtype_and_x</span><span class="o">=</span><span class="n">helpers</span><span class="o">.</span><span class="n">dtype_and_values</span><span class="p">(</span><span class="n">available_dtypes</span><span class="o">=</span><span class="n">helpers</span><span class="o">.</span><span class="n">get_dtypes</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)),</span>
 <span class="n">num_positional_args</span><span class="o">=</span><span class="n">helpers</span><span class="o">.</span><span class="n">ints</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
 <span class="n">alpha</span><span class="o">=</span><span class="n">helpers</span><span class="o">.</span><span class="n">floats</span><span class="p">(),</span>
 <span class="p">)</span>
