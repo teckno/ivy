@@ -1054,6 +1054,16 @@ floating-point data type determined by <span class="xref std std-ref">type-promo
 two dimensions must be transposed).</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>x = ivy.array([[1., 2.],                  [3., 4.]])
+y = pinv(x, None, None)
+print(y)
+ivy.array([[-2., 1.],               [1.5, -0.5]])</p>
+<p>x = ivy.array([[1., 2.],                  [3., 4.]])
+out = ivy.array()
+pinv(x, 0, out)
+print(out)
+ivy.array([[0.0426, 0.0964],               [0.0605, 0.1368]])</p>
 </dd></dl>
 
 <dl class="py function">
