@@ -43,8 +43,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related_work.html">Related Work</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deep_dive.html">Deep Dive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
@@ -59,7 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/data_type.html">Data type</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/device.html">Device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/elementwise.html">Elementwise</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functional/ivy/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional/ivy/experimental.html">Experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/general.html">General</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/gradients.html">Gradients</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functional/ivy/layers.html">Layers</a></li>
@@ -191,7 +191,6 @@
 <li><p><a class="reference internal" href="#background">Background</a></p></li>
 <li><p><a class="reference internal" href="#design">Design</a></p></li>
 <li><p><a class="reference internal" href="#extensions">Extensions</a></p></li>
-<li><p><a class="reference internal" href="#roadmap">Roadmap</a></p></li>
 <li><p><a class="reference external" href="https://lets-unify.ai/ivy/contributing.html">Contributing</a></p></li>
 </ul>
 </section>
@@ -298,7 +297,7 @@ You should then see output like the following:</p>
 <span class="n">ivy</span><span class="o">.</span><span class="n">depthwise_conv2d</span><span class="p">(</span>                  <span class="n">ivy</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>                                 <span class="n">ivy</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span>
 <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span>                             <span class="n">ivy</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span>                              <span class="n">ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span>
 <span class="n">ivy</span><span class="o">.</span><span class="n">execute_with_gradients</span><span class="p">(</span>            <span class="n">ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>                                 <span class="n">ivy</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span>
-<span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>                               <span class="n">ivy</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span>                            <span class="n">ivy</span><span class="o">.</span><span class="n">variable</span><span class="p">(</span>
+<span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>                               <span class="n">ivy</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span>                            <span class="n">ivy</span><span class="o">.</span><span class="n">vector_norm</span><span class="p">(</span>
 <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span>                       <span class="n">ivy</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span>                                 <span class="n">ivy</span><span class="o">.</span><span class="n">vector_to_skew_symmetric_matrix</span><span class="p">(</span>
 <span class="n">ivy</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span>                              <span class="n">ivy</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span>                              <span class="n">ivy</span><span class="o">.</span><span class="n">verbosity</span>
 <span class="n">ivy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>                             <span class="n">ivy</span><span class="o">.</span><span class="n">random</span>                                <span class="n">ivy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
@@ -334,9 +333,9 @@ You should then see output like the following:</p>
 <a class="reference internal image-reference" href="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/design/submodule_dependency_graph.png?raw=true"><img alt="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/design/submodule_dependency_graph.png?raw=true" class="align-center" src="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/design/submodule_dependency_graph.png?raw=true" style="width: 100%;" /></a>
 <div class="line-block">
 <div class="line">(a) <a class="reference external" href="https://lets-unify.ai/ivy/design/building_blocks.html">Building Blocks</a></div>
-<div class="line">Back-end functional APIs ✅</div>
+<div class="line">Backend functional APIs ✅</div>
 <div class="line">Ivy functional API ✅</div>
-<div class="line">Framework Handler ✅</div>
+<div class="line">Backend Handler ✅</div>
 <div class="line">Ivy Compiler 🚧</div>
 <div class="line"><br /></div>
 <div class="line">(b) <a class="reference external" href="https://lets-unify.ai/ivy/design/ivy_as_a_transpiler.html">Ivy as a Transpiler</a></div>
@@ -358,28 +357,11 @@ You should then see output like the following:</p>
 <div class="line"><code class="code docutils literal notranslate"><span class="pre">ivy.Trainer</span></code>, <code class="code docutils literal notranslate"><span class="pre">ivy.Dataset</span></code>, <code class="code docutils literal notranslate"><span class="pre">ivy.Dataloader</span></code> and other helpful classes and functions for creating training workflows in only a few lines of code</div>
 </div>
 </section>
-<section id="roadmap">
-<h1>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this heading"></a></h1>
-<div class="line-block">
-<div class="line">We strongly welcome and encourage contributions from the community as we take on this important journey towards ML framework unification. These posts will explain exactly how you can get involved 🙂</div>
-<div class="line"><br /></div>
-<div class="line">(a) <strong>Standardize [page coming soon!]</strong> 🚧</div>
-<div class="line">Align Ivy with the <a class="reference external" href="https://data-apis.org">Consortium for Python Data API Standards</a></div>
-<div class="line"><br /></div>
-<div class="line">(b) <strong>Front-Ends [page coming soon!]</strong> 🚧</div>
-<div class="line">Create backend-specific front-ends for each supported ML framework</div>
-<div class="line"><br /></div>
-<div class="line">(c) <strong>Transpiler [page coming soon!]</strong> 🚧</div>
-<div class="line">Verify code conversions work for each back-end and front-end combo</div>
-<div class="line"><br /></div>
-<div class="line">(d) <strong>Ecosystem [page coming soon!]</strong> 🚧</div>
-<div class="line">Add multi-framework support to popular repos with a few lines changed</div>
-</div>
-</section>
 <section id="contributing">
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h1>
 <p>Join our community as a code contributor, and help accelerate our journey to unify all ML frameworks!
-Find out more in our <a class="reference external" href="https://lets-unify.ai/ivy/contributing.html">Contributing</a> guide!</p>
+Check out all of our open tasks, and find out more info in our
+<a class="reference external" href="https://lets-unify.ai/ivy/contributing.html">Contributing</a> guide!</p>
 </section>
 <section id="citation">
 <h1>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h1>
