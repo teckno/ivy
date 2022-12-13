@@ -3671,6 +3671,44 @@
         <span class="n">ary</span><span class="p">,</span> <span class="n">indices_or_sections</span><span class="o">=</span><span class="n">indices_or_sections</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
     <span class="p">)</span></div>
 
+<span class="c1"># global</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="c1"># local</span>
+<span class="kn">import</span> <span class="nn">ivy</span>
+<span class="kn">from</span> <span class="nn">ivy.backend_handler</span> <span class="kn">import</span> <span class="n">current_backend</span>
+<span class="kn">from</span> <span class="nn">ivy.exceptions</span> <span class="kn">import</span> <span class="n">handle_exceptions</span>
+
+
+<div class="viewcode-block" id="is_native_dtype"><a class="viewcode-back" href="../../../../functional/ivy/experimental/is_native_dtype.html#ivy.functional.ivy.experimental.is_native_dtype">[docs]</a><span class="nd">@handle_exceptions</span>
+<span class="k">def</span> <span class="nf">is_native_dtype</span><span class="p">(</span><span class="n">dtype_in</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Dtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">],</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determines whether the input dtype is a Native dtype.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dtype_in</span>
+<span class="sd">        Determine whether the input data type is a native data type object.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        Boolean, whether or not dtype_in is a native data type.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ivy.set_backend(&#39;numpy&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; ivy.is_native_dtype(np.int32)</span>
+<span class="sd">    True</span>
+
+<span class="sd">    &gt;&gt;&gt; ivy.set_backend(&#39;numpy&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; ivy.is_native_array(ivy.float64)</span>
+<span class="sd">    False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">current_backend</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">is_native_dtype</span><span class="p">(</span><span class="n">dtype_in</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
 
 
 
@@ -4895,9 +4933,9 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">signbit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="diff_"><a class="viewcode-back" href="../../../../functional/ivy/experimental/diff_/diff__functional.html#ivy.functional.ivy.experimental.diff_">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="diff"><a class="viewcode-back" href="../../../../functional/ivy/experimental/diff/diff_functional.html#ivy.functional.ivy.experimental.diff">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_nestable</span>
-<span class="k">def</span> <span class="nf">diff_</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">diff</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">],</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
@@ -4913,14 +4951,15 @@
 <span class="sd">    x</span>
 <span class="sd">        Array-like input.</span>
 <span class="sd">    n</span>
-<span class="sd">        The number of times values are differenced. If zero, the input is returned as-is.</span>
+<span class="sd">        The number of times values are differenced. If zero, the input is returned</span>
+<span class="sd">        as-is.</span>
 <span class="sd">    axis</span>
 <span class="sd">        The axis along which the difference is taken, default is the last axis.</span>
 <span class="sd">    prepend,append</span>
-<span class="sd">        Values to prepend/append to x along given axis prior to performing the difference.</span>
-<span class="sd">        Scalar values are expanded to arrays with length 1 in the direction of axis and </span>
-<span class="sd">        the shape of the input array in along all other axes. </span>
-<span class="sd">        Otherwise the dimension and shape must match a except along axis.</span>
+<span class="sd">        Values to prepend/append to x along given axis prior to performing the</span>
+<span class="sd">        difference. Scalar values are expanded to arrays with length 1 in the direction</span>
+<span class="sd">        of axis and the shape of the input array in along all other axes. Otherwise the</span>
+<span class="sd">        dimension and shape must match a except along axis.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -4930,12 +4969,10 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 2, 4, 7, 0])</span>
-<span class="sd">    &gt;&gt;&gt; ivy.diff_(x)</span>
+<span class="sd">    &gt;&gt;&gt; ivy.diff(x)</span>
 <span class="sd">    ivy.array([ 1,  2,  3, -7])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">diff_</span><span class="p">(</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="n">append</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="n">prepend</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="n">append</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="allclose"><a class="viewcode-back" href="../../../../functional/ivy/experimental/allclose/allclose_functional.html#ivy.functional.ivy.experimental.allclose">[docs]</a><span class="nd">@handle_exceptions</span>
