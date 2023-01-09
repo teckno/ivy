@@ -50,6 +50,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/experimental.html">Experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/activations.html">Activations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/compilation.html">Compilation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/constants.html">Constants</a></li>
@@ -156,7 +157,7 @@
         <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;ivy.Container static method variant of ivy.dirichlet. This method</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ivy.Container static method variant of ivy.dirichlet. This method</span>
 <span class="sd">        simply wraps the function, and so the docstring for ivy.dirichlet also</span>
 <span class="sd">        applies to this method with minimal changes.</span>
 
@@ -201,7 +202,7 @@
 <span class="sd">                )</span>
 <span class="sd">        }</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">cont_multi_map_in_static_method</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">cont_multi_map_in_function</span><span class="p">(</span>
             <span class="s2">&quot;dirichlet&quot;</span><span class="p">,</span>
             <span class="n">alpha</span><span class="p">,</span>
             <span class="n">key_chains</span><span class="o">=</span><span class="n">key_chains</span><span class="p">,</span>
@@ -222,7 +223,7 @@
         <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.dirichlet. This method</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.dirichlet. This method</span>
 <span class="sd">        simply wraps the function, and so the docstring for ivy.shuffle also</span>
 <span class="sd">        applies to this method with minimal changes.</span>
 
@@ -290,7 +291,7 @@
         <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;ivy.Container static method variant of ivy.beta. This method</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ivy.Container static method variant of ivy.beta. This method</span>
 <span class="sd">        simply wraps the function, and so the docstring for ivy.beta also</span>
 <span class="sd">        applies to this method with minimal changes.</span>
 
@@ -330,7 +331,7 @@
 <span class="sd">        ret</span>
 <span class="sd">            A container object, with values drawn from the beta distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">cont_multi_map_in_static_method</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">cont_multi_map_in_function</span><span class="p">(</span>
             <span class="s2">&quot;beta&quot;</span><span class="p">,</span>
             <span class="n">alpha</span><span class="p">,</span>
             <span class="n">beta</span><span class="p">,</span>
@@ -361,7 +362,7 @@
         <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.beta. This method</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.beta. This method</span>
 <span class="sd">        simply wraps the function, and so the docstring for ivy.beta also</span>
 <span class="sd">        applies to this method with minimal changes.</span>
 

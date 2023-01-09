@@ -5,6 +5,7 @@
    :maxdepth: -1
    :caption: Ivy
 
+   ivy/experimental.rst
    ivy/activations.rst
    ivy/compilation.rst
    ivy/constants.rst
