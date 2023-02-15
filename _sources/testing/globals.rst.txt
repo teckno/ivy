@@ -1,0 +1,20 @@
+Globals
+=======
+
+.. automodule:: ivy_tests.test_ivy.helpers.globals
+	:members:
+	:special-members: __init__
+	:undoc-members:
+	:show-inheritance:
+
+.. toctree::
+	:hidden:
+	:maxdepth: -1
+	:caption: globals
+
+	globals/setup_api_test.rst
+	globals/setup_frontend_test.rst
+	globals/teardown_api_test.rst
+	globals/teardown_frontend_test.rst
+	globals/InterruptedTest.rst
+	globals/TestData.rst

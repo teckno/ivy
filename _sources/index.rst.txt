@@ -314,15 +314,15 @@ Citation
    :maxdepth: -1
    :caption: Framework Classes
 
+   stateful/optimizers.rst
    stateful/activations.rst
    stateful/layers.rst
-   stateful/converters.rst
    stateful/module.rst
    stateful/initializers.rst
-   stateful/helpers.rst
+   stateful/converters.rst
    stateful/sequential.rst
+   stateful/helpers.rst
    stateful/norms.rst
-   stateful/optimizers.rst
 
 
 .. toctree::
@@ -331,6 +331,21 @@ Citation
    :caption: Nested array
 
    nested_array/nested_array.rst
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: -1
+   :caption: Testing
+
+   testing/assertions.rst
+   testing/available_frameworks.rst
+   testing/function_testing.rst
+   testing/globals.rst
+   testing/hypothesis_helpers.rst
+   testing/structs.rst
+   testing/test_parameter_flags.rst
+   testing/testing_helpers.rst
 
 
 .. toctree::
