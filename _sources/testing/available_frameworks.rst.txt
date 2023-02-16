@@ -11,3 +11,6 @@ Available frameworks
 	:hidden:
 	:maxdepth: -1
 	:caption: available_frameworks
+
+	available_frameworks/available_frameworks.rst
+	available_frameworks/ground_truth.rst

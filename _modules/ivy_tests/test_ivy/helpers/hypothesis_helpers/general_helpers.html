@@ -153,6 +153,7 @@
 <span class="kn">import</span> <span class="nn">ivy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">array_helpers</span><span class="p">,</span> <span class="n">number_helpers</span><span class="p">,</span> <span class="n">dtype_helpers</span>
+<span class="kn">from</span> <span class="nn">ivy.functional.ivy.layers</span> <span class="kn">import</span> <span class="n">_deconv_length</span>
 
 
 <div class="viewcode-block" id="matrix_is_stable"><a class="viewcode-back" href="../../../../../testing/hypothesis_helpers/general_helpers/matrix_is_stable.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.matrix_is_stable">[docs]</a><span class="k">def</span> <span class="nf">matrix_is_stable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">cond_limit</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
@@ -290,10 +291,6 @@
             <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="n">size</span>
         <span class="p">)</span>
     <span class="p">)</span>
-    <span class="c1"># assume(all(side &lt;= MAX_SIDE for side in rshape))</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rshape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">draw</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">booleans</span><span class="p">()):</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">number_helpers</span><span class="o">.</span><span class="n">ints</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rshape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="n">rshape</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rshape</span><span class="p">)</span></div>
 
 
@@ -391,7 +388,7 @@
 <span class="sd">    A strategy that can be used in the @given hypothesis decorator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">none_or_float</span> <span class="o">=</span> <span class="n">none_or_float</span> <span class="o">=</span> <span class="n">number_helpers</span><span class="o">.</span><span class="n">floats</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span> <span class="o">|</span> <span class="n">st</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">array_helpers</span><span class="o">.</span><span class="n">list_of_length</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">none_or_float</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">array_helpers</span><span class="o">.</span><span class="n">list_of_size</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">none_or_float</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
     <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
@@ -420,7 +417,7 @@
             <span class="k">return</span> <span class="n">draw</span><span class="p">(</span><span class="n">get_bounds</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">none_or_float</span> <span class="o">=</span> <span class="n">number_helpers</span><span class="o">.</span><span class="n">floats</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span> <span class="o">|</span> <span class="n">st</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">array_helpers</span><span class="o">.</span><span class="n">list_of_length</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">none_or_float</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">array_helpers</span><span class="o">.</span><span class="n">list_of_size</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">none_or_float</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -577,9 +574,7 @@
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
             <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">ivy</span><span class="o">.</span><span class="n">deconv_length</span><span class="p">(</span>
-                    <span class="n">x_dim</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">strides</span><span class="p">,</span> <span class="n">filter_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilations</span>
-                <span class="p">)</span>
+                <span class="n">_deconv_length</span><span class="p">(</span><span class="n">x_dim</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">strides</span><span class="p">,</span> <span class="n">filter_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilations</span><span class="p">)</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
@@ -624,6 +619,36 @@
             <span class="n">output_shape</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">dilations</span><span class="p">,</span> <span class="n">data_format</span><span class="p">,</span> <span class="n">strides</span><span class="p">,</span> <span class="n">padding</span></div>
+
+
+<div class="viewcode-block" id="embedding_helper"><a class="viewcode-back" href="../../../../../testing/hypothesis_helpers/general_helpers/embedding_helper.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.embedding_helper">[docs]</a><span class="nd">@st</span><span class="o">.</span><span class="n">composite</span>
+<span class="k">def</span> <span class="nf">embedding_helper</span><span class="p">(</span><span class="n">draw</span><span class="p">):</span>
+    <span class="n">dtype_weight</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span>
+        <span class="n">array_helpers</span><span class="o">.</span><span class="n">dtype_and_values</span><span class="p">(</span>
+            <span class="n">available_dtypes</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">x</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">draw</span><span class="p">(</span><span class="n">dtype_helpers</span><span class="o">.</span><span class="n">get_dtypes</span><span class="p">(</span><span class="s2">&quot;numeric&quot;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="s2">&quot;float&quot;</span> <span class="ow">in</span> <span class="n">x</span> <span class="ow">or</span> <span class="s2">&quot;complex&quot;</span> <span class="ow">in</span> <span class="n">x</span>
+            <span class="p">],</span>
+            <span class="n">min_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">max_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">min_dim_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">min_value</span><span class="o">=-</span><span class="mf">1e04</span><span class="p">,</span>
+            <span class="n">max_value</span><span class="o">=</span><span class="mf">1e04</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">dtype_indices</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span>
+        <span class="n">array_helpers</span><span class="o">.</span><span class="n">dtype_and_values</span><span class="p">(</span>
+            <span class="n">available_dtypes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span> <span class="s2">&quot;int64&quot;</span><span class="p">],</span>
+            <span class="n">min_num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">min_dim_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">max_value</span><span class="o">=</span><span class="n">num_embeddings</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">embedding_dim</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">padding_idx</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="n">num_embeddings</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">dtype_indices</span> <span class="o">+</span> <span class="n">dtype_weight</span><span class="p">,</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">weight</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">padding_idx</span></div>
 </pre></div>
 
            </div>

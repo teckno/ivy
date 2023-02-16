@@ -13,6 +13,7 @@ General helpers
 	:caption: general_helpers
 
 	general_helpers/apply_safety_factor.rst
+	general_helpers/embedding_helper.rst
 	general_helpers/get_axis.rst
 	general_helpers/get_bounds.rst
 	general_helpers/get_mean_std.rst

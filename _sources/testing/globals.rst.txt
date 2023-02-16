@@ -12,6 +12,7 @@ Globals
 	:maxdepth: -1
 	:caption: globals
 
+	globals/remove_all_current_framework.rst
 	globals/setup_api_test.rst
 	globals/setup_frontend_test.rst
 	globals/teardown_api_test.rst
