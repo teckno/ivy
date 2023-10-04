@@ -1826,7 +1826,7 @@ def test_torch_view_as_real(
     )
 
 
-#cdist
+# cdist
 @handle_frontend_test(
     fn_tree="torch.cdist",
     dtypes_and_x=helpers.dtype_and_values(
